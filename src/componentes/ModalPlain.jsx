@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
 
-export default function ModalPlain({ show, onClose, title, children }) {
+export default function ModalPlain({ show, onClose, title, children, width }) {
   useEffect(() => {
     console.log("ModalPlain renderizado: ", show);
   }, [show]);
@@ -19,16 +19,19 @@ export default function ModalPlain({ show, onClose, title, children }) {
     padding: "20px",
   };
 
-  const modalStyle = {
-    background: "white",
-    borderRadius: "12px",
-    padding: "24px",
-    width: "100%",
-    maxWidth: "480px",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-    position: "relative",
-    animation: "fadeIn 0.3s ease-out",
-  };
+ const modalStyle = {
+  background: "white",
+  borderRadius: "12px",
+  padding: "24px",
+  width: width || "90%",   
+  maxWidth: "90vw",
+  maxHeight: "90vh",
+  overflowY: "auto",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+  position: "relative",
+  animation: "fadeIn 0.3s ease-out",
+};
+
 
   const modalRoot = document.getElementById("modal-root");
 

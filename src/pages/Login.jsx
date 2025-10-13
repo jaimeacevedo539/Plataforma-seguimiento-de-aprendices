@@ -43,8 +43,8 @@ function Login() {
       {/* Ventana modal */}
       <div className="relative bg-white/60 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 p-8 w-[40%] max-w-sm z-10">
         {/* Logo de Indra */}
-        <div className="flex justify-center mb-4">
-        <img src="/logoIndra.png" alt="Logo Indra" className="h-16 max-w-40 mb-4 object-contain"/>
+        <div className="flex justify-center mb-6">
+        <img src="/logoIndra.png" alt="Logo Indra" className="h-16 max-w-60 mb-6 object-contain"/>
         
 
           

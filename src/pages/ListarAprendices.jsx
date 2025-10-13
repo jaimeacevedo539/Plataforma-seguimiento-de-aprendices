@@ -6,7 +6,8 @@ const ListarAprendices = () => {
   const [aprendices, setAprendices] = useState([]);
   const[loading,setLoading]=useState(true);
   const[selectedAprendiz,setSelectedAprendiz]=useState(null);
-  const[showModal,setShowModal]=useState(false);
+  const[showListModal,setShowListModal]=useState(false);
+  const[showEditModal,setShowEditModal]=useState(false);
 
   const API_URL = 'http://localhost:8080/api/aprendices';
 
@@ -41,9 +42,9 @@ const ListarAprendices = () => {
     };
 
     //editar aprendiz con modal
-    const abrirModal = (aprendiz) => {
+    const abrirModalEdicion = (aprendiz) => {
       setSelectedAprendiz(aprendiz);
-      setShowModal(true);
+      setShowEditModal(true);
     };
 
     //guardar cambios del aprendiz editado
@@ -55,7 +56,7 @@ const nuevosAprendices = aprendices.map(a =>
 );
 setAprendices(nuevosAprendices);
 
-        setShowModal(false);
+        setShowListModal(false);
         alert('Aprendiz actualizado correctamente');
       } catch (error) {
         console.error('Error al actualizar aprendiz:', error);
@@ -72,56 +73,80 @@ setAprendices(nuevosAprendices);
     if (loading) return <p className="text-center mt-10 text-gray-600">Cargando aprendices...</p>;
 
 
-    return (
-    <div className="max-w-5xl mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6">
-      <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Lista de Aprendices</h2>
+       return (
+    <div className="flex flex-col items-center mt-10">
+      {/* Botón principal */}
+      <button
+        onClick={() => setShowListModal(true)}
+        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
+      >
+        📋 Listar Aprendices
+      </button>
 
-      {aprendices.length === 0 ? (
-        <p className="text-center text-gray-500">No hay aprendices registrados.</p>
-      ) : (
-        <table className="w-full text-left border border-gray-200">
-          <thead className="bg-blue-100">
-            <tr>
-              <th className="py-2 px-3 border">Código</th>
-              <th className="py-2 px-3 border">Nombre</th>
-              <th className="py-2 px-3 border">Correo</th>
-              <th className="py-2 px-3 border">Programa</th>
-              <th className="py-2 px-3 border">Etapa</th>
-              <th className="py-2 px-3 border">Tutor</th>
-              <th className="py-2 px-3 border text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {aprendices.map((a) => (
-              <tr key={a.codAprendiz} className="hover:bg-gray-50">
-                <td className="py-2 px-3 border">{a.codAprendiz}</td>
-                <td className="py-2 px-3 border">{a.nombre}</td>
-                <td className="py-2 px-3 border">{a.correo}</td>
-                <td className="py-2 px-3 border">{a.programa}</td>
-                <td className="py-2 px-3 border">{a.etapa}</td>
-                <td className="py-2 px-3 border">{a.codTutor}</td>
-                <td className="py-2 px-3 border text-center">
-                  <button
-                    onClick={() => abrirModal(a)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-3 py-1 rounded mr-2"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => eliminarAprendiz(a.codAprendiz)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Modal LISTA de aprendices */}
+      {showListModal && (
+        <ModalPlain
+          show={showListModal}
+          onClose={() => setShowListModal(false)}
+          title="Lista de Aprendices"
+          className="max-w-6xl w-[100vw]" 
+        >
+          {aprendices.length === 0 ? (
+            <p className="text-center text-gray-500">No hay aprendices registrados.</p>
+          ) : (
+            <div className="overflow-x-auto max-h-[70vh]">
+              <table className="w-full text-left border border-gray-200 rounded-lg overflow-hidden">
+                <thead className="bg-blue-100 sticky top-0">
+                  <tr>
+                    <th className="py-2 px-3 border">Código</th>
+                    <th className="py-2 px-3 border">Nombre</th>
+                    <th className="py-2 px-3 border">Correo</th>
+                    <th className="py-2 px-3 border">Programa</th>
+                    <th className="py-2 px-3 border">Etapa</th>
+                    <th className="py-2 px-3 border">Tutor</th>
+                    <th className="py-2 px-3 border text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {aprendices.map((a) => (
+                    <tr key={a.codAprendiz} className="hover:bg-gray-50">
+                      <td className="py-2 px-3 border">{a.codAprendiz}</td>
+                      <td className="py-2 px-3 border">{a.nombre}</td>
+                      <td className="py-2 px-3 border">{a.correo}</td>
+                      <td className="py-2 px-3 border">{a.programa}</td>
+                      <td className="py-2 px-3 border">{a.etapa}</td>
+                      <td className="py-2 px-3 border">{a.codTutor}</td>
+                      <td className="py-2 px-3 border text-center">
+                        <button
+                          onClick={() => abrirModalEdicion(a)}
+                          className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-3 py-1 rounded mr-2"
+                        >
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => eliminarAprendiz(a.codAprendiz)}
+                          className="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </ModalPlain>
       )}
-      {showModal && selectedAprendiz && (
-        <ModalPlain show={showModal} onClose={() => setShowModal(false)} title="Editar Aprendiz">
-        {selectedAprendiz && (
+
+      {/* Modal EDITAR aprendiz */}
+      {showEditModal && selectedAprendiz && (
+        <ModalPlain
+          show={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          title={`Editar Aprendiz - ${selectedAprendiz.nombre}`}
+          width="500px"
+        >
           <div className="space-y-3">
             <input
               type="text"
@@ -172,18 +197,17 @@ setAprendices(nuevosAprendices);
                 Guardar
               </button>
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => setShowEditModal(false)}
                 className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
               >
                 Cancelar
               </button>
             </div>
           </div>
-        )}
-      </ModalPlain>
+        </ModalPlain>
       )}
     </div>
   );
-}
+};
 
 export default ListarAprendices;

@@ -41,3 +41,14 @@ export const eliminarRetroalimentacion = async (codRetro) => {
         throw error;
     }
 }; 
+
+export const obtenerRetroalimentacionPorAprendiz = async (id) => {
+    try {
+        const response = await axios.get(`${API_URL}/listar/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener retroalimentación por aprendiz:', error);
+        throw error;
+    }   
+};
+        
