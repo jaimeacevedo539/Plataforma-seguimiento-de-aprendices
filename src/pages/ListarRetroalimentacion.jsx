@@ -60,11 +60,11 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
 
     if (loading) return <p className="text-center mt-10 text-gray-600">Cargando retroalimentaciones...</p>;
     return (
-    <div className="max-w-5xl mx-auto mt-10 text-center">
+    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 text-center">
       {/* Botón para abrir el modal de lista */}
       <button
         onClick={() => setShowListModal(true)}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md font-semibold"
+        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
       >
        📋 Listar Retroalimentaciones
       </button>

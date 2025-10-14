@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import { comma } from "postcss/lib/list";
+import ModalPlain from "./ModalPlain";
 
-export default function FormAprendiz() {
+ function FormAprendiz() {
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
@@ -12,6 +12,7 @@ export default function FormAprendiz() {
   });
   const [errors, setErrors] = useState({});
   const [mensaje, setMensaje] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
    const validar=()=>{
   const nuevosErrores = {};
@@ -43,10 +44,23 @@ export default function FormAprendiz() {
         }
       };    
     return (    
-        <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6">
+        <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 text-center">
       <h2 className="text-2xl font-bold text-center mb-4 text-blue-700">
-        Registro de Aprendices
       </h2>
+      <button
+        onClick={() => setShowModal(true)}
+        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
+      >
+        📝 Registrar Aprendiz
+      </button>
+
+      <ModalPlain 
+        show={showModal} 
+        onClose={() => setShowModal(false)} 
+        title="Registrar Aprendiz "
+        width="600px" 
+        >
+          
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -121,7 +135,10 @@ export default function FormAprendiz() {
           {mensaje}
         </p>
       )}
+      </ModalPlain>
     </div>
   );
 }
+
+export default FormAprendiz;
 

@@ -43,14 +43,14 @@ function Login() {
       {/* Ventana modal */}
       <div className="relative bg-white/60 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 p-8 w-[40%] max-w-sm z-10">
         {/* Logo de Indra */}
-        <div className="flex justify-center mb-6">
-        <img src="/logoIndra.png" alt="Logo Indra" className="h-16 max-w-60 mb-6 object-contain"/>
+        <div className="flex justify-center mb-8">
+        <img src="/logoIndra.png" alt="Logo Indra" className="w-28 max-w-100 mb-2 object-contain"/>
         
 
           
         </div>
 
-        <h2 className="text-2xl font-bold text-[#004481] mb-6 text-center">
+        <h2 className="text-2xl font-bold text-[#004153] mb-6 text-center">
           Plataforma de Aprendices
         </h2>
 
@@ -77,7 +77,7 @@ function Login() {
 
           <button
             type="submit"
-            className="w-full bg-[#004481] hover:bg-[#003463] text-white py-3 rounded-lg font-semibold transition-transform hover:scale-105"
+            className="w-full bg-[#004153] hover:bg-[#003463] text-white py-3 rounded-lg font-semibold transition-transform hover:scale-105"
           >
             Ingresar
           </button>
