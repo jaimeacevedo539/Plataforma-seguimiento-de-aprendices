@@ -11,3 +11,13 @@ export const registrarAprendiz = async (data) => {
     throw error;
   }
 };
+
+export const obtenerAprendizPorCodigo = async (codAprendiz) => {
+  try {
+    const response = await axios.get(`${API_URL}/${codAprendiz}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener aprendiz por código:', error);
+    throw error;
+  }
+}; 

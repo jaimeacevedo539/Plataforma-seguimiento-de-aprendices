@@ -10,8 +10,8 @@ const ListarRetroalimentacion = () => {
   const[showEditModal,setShowEditModal]=useState(false);
     const API_URL = 'http://localhost:8080/api/retroalimentaciones';
     //CARGAR LISTA DE RETROALIMENTACIONES
-    const fetchRetroalimentaciones = async () => {
-    try {
+    const fetchRetroalimentaciones = async () => { 
+    try { 
       const response = await axios.get(`${API_URL}/listar`);
       setRetroalimentaciones(response.data);
       setLoading(false);
@@ -59,6 +59,8 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
     
 
     if (loading) return <p className="text-center mt-10 text-gray-600">Cargando retroalimentaciones...</p>;
+    console.log("Retroalimentaciones recibidas:", retroalimentaciones);
+
     return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 text-center">
       {/* Botón para abrir el modal de lista */}
@@ -83,9 +85,9 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
             <table className="w-full text-left border border-gray-200">
               <thead className="bg-blue-100">
                 <tr>
-                  <th className="py-2 px-3 border">Código Retroalimentación</th>
-                  <th className="py-2 px-3 border">Código Aprendiz</th>
-                  <th className="py-2 px-3 border">Código Tutor</th>
+                  <th className="py-2 px-3 border">Código Retroalimentacion</th>
+                  <th className="py-2 px-3 border">Aprendiz</th>
+                  <th className="py-2 px-3 border">Tutor</th>
                   <th className="py-2 px-3 border">Observación</th>
                   <th className="py-2 px-3 border">Calificación</th>
                   <th className="py-2 px-3 border">Fecha</th>
@@ -96,8 +98,8 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
                 {retroalimentaciones.map((r) => (
                   <tr key={r.codRetro} className="hover:bg-gray-50">
                     <td className="py-2 px-3 border">{r.codRetro}</td>
-                    <td className="py-2 px-3 border">{r.codAprendiz}</td>
-                    <td className="py-2 px-3 border">{r.codTutor}</td>
+                    <td className="py-2 px-3 border">{r.nombreAprendiz }</td>
+                    <td className="py-2 px-3 border">{r.nombreTutor }</td>
                     <td className="py-2 px-3 border">{r.observaciones}</td>
                     <td className="py-2 px-3 border">{r.calificacion}</td>
                     <td className="py-2 px-3 border">
