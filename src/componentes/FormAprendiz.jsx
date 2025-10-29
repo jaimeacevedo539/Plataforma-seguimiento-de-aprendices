@@ -44,20 +44,19 @@ import ModalPlain from "./ModalPlain";
         }
       };    
     return (    
-        <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 text-center">
-      <h2 className="text-2xl font-bold text-center mb-4 text-blue-700">
-      </h2>
+        <div>
+     
       <button
         onClick={() => setShowModal(true)}
-        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
+        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-4 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
       >
-        📝 Registrar Aprendiz
+        Registrar Aprendiz
       </button>
 
       <ModalPlain 
         show={showModal} 
         onClose={() => setShowModal(false)} 
-        title="Registrar Aprendiz "
+        title="Registrar Aprendiz  "
         width="600px" 
         >
           
@@ -120,7 +119,7 @@ import ModalPlain from "./ModalPlain";
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
+          className="w-full bg-[#004153] text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
         >
           Registrar
         </button>

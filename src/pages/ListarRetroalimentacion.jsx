@@ -62,14 +62,13 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
     console.log("Retroalimentaciones recibidas:", retroalimentaciones);
 
     return (
-    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 text-center">
+    <div >
       {/* Botón para abrir el modal de lista */}
-      <button
-        onClick={() => setShowListModal(true)}
-        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
-      >
-       📋 Listar Retroalimentaciones
-      </button>
+        <button
+          onClick={() => setShowListModal(true)}
+          className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105 min-w-[230px] text-center">
+          Listar Retroalimentación
+        </button>
 
       {/* Modal con la lista */}
       <ModalPlain
@@ -108,7 +107,7 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
                     <td className="py-2 px-3 border text-center">
                       <button
                         onClick={() => abrirEditModal(r)}
-                        className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-3 py-1 rounded mr-2"
+                        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-3 py-1 rounded mr-2"
                       >
                         Editar
                       </button>

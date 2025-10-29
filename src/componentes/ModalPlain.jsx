@@ -54,7 +54,7 @@ export default function ModalPlain({ show, onClose, title, children, width }) {
         </button>
 
         {title && (
-          <h2 className="text-center text-blue-600 text-xl mb-4">{title}</h2>
+          <h2 className="text-center text-[#004153] text-xl mb-4">{title}</h2>
         )}
 
         {children}

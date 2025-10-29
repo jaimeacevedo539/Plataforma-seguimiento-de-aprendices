@@ -55,8 +55,7 @@ const nuevosAprendices = aprendices.map(a =>
   a.codAprendiz === selectedAprendiz.codAprendiz ? { ...selectedAprendiz } : a
 );
 setAprendices(nuevosAprendices);
-
-        setShowListModal(false);
+        setShowEditModal(false);
         alert('Aprendiz actualizado correctamente');
       } catch (error) {
         console.error('Error al actualizar aprendiz:', error);
@@ -74,14 +73,13 @@ setAprendices(nuevosAprendices);
 
 
        return (
-    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 text-center">
+    <div >
       {/* Botón principal */}
-      <button
-        onClick={() => setShowListModal(true)}
-        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
-      >
-        📋 Listar Aprendices
-      </button>
+    <button
+    onClick={() => setShowListModal(true)}
+    className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105 min-w-[230px] text-center">
+    Listar Aprendices
+  </button>
 
       {/* Modal LISTA de aprendices */}
       {showListModal && (
@@ -119,7 +117,7 @@ setAprendices(nuevosAprendices);
                       <td className="py-2 px-3 border text-center">
                         <button
                           onClick={() => abrirModalEdicion(a)}
-                          className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-3 py-1 rounded mr-2"
+                          className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-3 py-1 rounded mr-2"
                         >
                           Editar
                         </button>
@@ -144,7 +142,7 @@ setAprendices(nuevosAprendices);
         <ModalPlain
           show={showEditModal}
           onClose={() => setShowEditModal(false)}
-          title={`Editar Aprendiz - ${selectedAprendiz.nombre}`}
+          title="Editar Aprendiz"
           width="500px"
         >
           <div className="space-y-3">

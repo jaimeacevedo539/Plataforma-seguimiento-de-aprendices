@@ -93,28 +93,29 @@ function PerfilTutor() {
         </div>
 
         {/*  Contenido derecho: gestión */}
-        <div className="w-3/4 space-y-10">
+        <div className="w-3/4 space-y-12">
           <h2 className="text-2xl font-bold text-[#004153] mb-6">
             Bienvenido al sistema de gestión
           </h2>
 
           {/* Sección de gestión de aprendices */}
-          <section className="bg-white p-3 shadow rounded-lg max-w-[900px] mx-auto">
-            <FormAprendiz />
-          </section>
+          <div className="flex justify-center gap-4">
+            <section >
+              <FormAprendiz />
+            </section>
 
-          <section className="bg-white p-3 shadow rounded-lg max-w-[900px] mx-auto">
-            <ListarAprendices />
-          </section>
+            <section >
+              <ListarAprendices />
+            </section>
 
-          {/* Sección de retroalimentaciones */}
-          <section className="bg-white p-3 shadow rounded-lg max-w-[900px] mx-auto">
-            <RegistrarRetroalimentacion />
-          </section>
+            <section >
+              <RegistrarRetroalimentacion />
+            </section>
 
-          <section className="bg-white p-3 shadow rounded-lg max-w-[900px] mx-auto">
-            <ListarRetroalimentacion />
-          </section>
+            <section >
+              <ListarRetroalimentacion />
+            </section>
+          </div>
         </div>
       </div>
     </div>

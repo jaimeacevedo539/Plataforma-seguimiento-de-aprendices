@@ -42,15 +42,15 @@ function RegistrarRetroalimentacion() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 text-center">
+    <div >
       <h2 className="text-2xl font-bold text-center mb-4 text-blue-700">
       </h2>
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
-      >
-        📝 Registrar Retroalimentación
-      </button>
+     <button
+    onClick={() => setShowModal(true)}
+    className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105 min-w-[230px] text-center"
+  >
+     Registrar Retroalimentación
+  </button>
       <ModalPlain 
       show={showModal} 
       onClose={() => setShowModal(false)} 
@@ -114,7 +114,7 @@ function RegistrarRetroalimentacion() {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
+          className="w-full bg-[#004153] text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
         >
           Registrar
         </button>
