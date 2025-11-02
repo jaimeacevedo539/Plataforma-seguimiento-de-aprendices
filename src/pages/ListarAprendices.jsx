@@ -56,7 +56,7 @@ const nuevosAprendices = aprendices.map(a =>
 );
 setAprendices(nuevosAprendices);
         setShowEditModal(false);
-        alert('Aprendiz actualizado correctamente');
+        alert('Aprendiz actualizado correctamente.');
       } catch (error) {
         console.error('Error al actualizar aprendiz:', error);
         alert('Error al actualizar aprendiz');
