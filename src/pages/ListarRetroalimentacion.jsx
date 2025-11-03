@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 import axios from "axios";
 import ModalPlain from "../componentes/ModalPlain";
 
-const ListarRetroalimentacion = () => {
+const ListarRetroalimentacion = ({ show, setShow }) => {
   const [retroalimentaciones, setRetroalimentaciones] = useState([]);
   const[loading,setLoading]=useState(true);
   const[selectedRetroalimentacion,setSelectedRetroalimentacion]=useState(null);
@@ -63,19 +63,13 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
 
     return (
     <div >
-      {/* Botón para abrir el modal de lista */}
-        <button
-          onClick={() => setShowListModal(true)}
-          className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105 min-w-[230px] text-center">
-          Listar Retroalimentación
-        </button>
 
       {/* Modal con la lista */}
       <ModalPlain
-        show={showListModal}
-        onClose={() => setShowListModal(false)}
+        show={!!show}
+        onClose={() => setShow(false)}
         title="Lista de Retroalimentaciones"
-        width="1000px"
+        width="1100px"
       >
         {retroalimentaciones.length === 0 ? (
           <p className="text-center text-gray-500">No hay retroalimentaciones registradas.</p>
@@ -104,16 +98,16 @@ setRetroalimentaciones(nuevasRetroalimentaciones);
                     <td className="py-2 px-3 border">
                       {r.fecha ? new Date(r.fecha).toLocaleDateString() : "Sin fecha"}
                     </td>
-                    <td className="py-2 px-3 border text-center">
+                    <td className=" flex gap-2 py-2 px-3 border text-center">
                       <button
                         onClick={() => abrirEditModal(r)}
-                        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-3 py-1 rounded mr-2"
+                        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-1 py-1 rounded mr-2"
                       >
                         Editar
                       </button>
                       <button
                         onClick={() => eliminarRetroalimentacion(r.codRetro)}
-                        className="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded"
+                        className="bg-red-500 hover:bg-red-600 text-white font-semibold px-1 py-1 rounded mr-2"
                       >
                         Eliminar
                       </button>
