@@ -127,6 +127,7 @@ function PerfilAprendiz() {
                   <p><strong>Tutor:</strong> {retro.nombreTutor}</p>
                   <p><strong>Calificación:</strong> {retro.calificacion}</p>
                   <p><strong>Observaciones:</strong> {retro.observaciones}</p>
+                  <p><strong>Fecha:</strong> {retro.fecha ? new Date(retro.fecha).toLocaleDateString() : "Sin fecha"}</p>
                 </li>
               ))}
             </ul>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { registrarRetroalimentacion } from "../servicios/retroalimentacionService";
 import ModalPlain from "../componentes/ModalPlain";
 
-function RegistrarRetroalimentacion() {
+function RegistrarRetroalimentacion({ show, setShow }) {
   const [formData, setFormData] = useState({
     codAprendiz: "",
     codTutor: "",
@@ -45,15 +45,9 @@ function RegistrarRetroalimentacion() {
     <div >
       <h2 className="text-2xl font-bold text-center mb-4 text-blue-700">
       </h2>
-     <button
-    onClick={() => setShowModal(true)}
-    className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105 min-w-[230px] text-center"
-  >
-     Registrar Retroalimentación
-  </button>
       <ModalPlain 
-      show={showModal} 
-      onClose={() => setShowModal(false)} 
+      show={!!show} 
+      onClose={() => setShow(false)} 
       title="Formulario de Retroalimentación"
       width="600px">
 

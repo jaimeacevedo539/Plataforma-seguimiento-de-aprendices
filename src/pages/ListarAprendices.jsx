@@ -2,7 +2,7 @@ import { useEffect, useState  } from "react";
 import axios from "axios";
 import ModalPlain from "../componentes/ModalPlain";
 
-const ListarAprendices = () => {
+const ListarAprendices = ({ show, setShow }) => {
   const [aprendices, setAprendices] = useState([]);
   const[loading,setLoading]=useState(true);
   const[selectedAprendiz,setSelectedAprendiz]=useState(null);
@@ -74,18 +74,11 @@ setAprendices(nuevosAprendices);
 
        return (
     <div >
-      {/* Botón principal */}
-    <button
-    onClick={() => setShowListModal(true)}
-    className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105 min-w-[230px] text-center">
-    Listar Aprendices
-  </button>
-
       {/* Modal LISTA de aprendices */}
-      {showListModal && (
+      {show && (
         <ModalPlain
-          show={showListModal}
-          onClose={() => setShowListModal(false)}
+          show={!!show}
+          onClose={() => setShow(false)}
           title="Lista de Aprendices"
           className="max-w-6xl w-[100vw]" 
         >

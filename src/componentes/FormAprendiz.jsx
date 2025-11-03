@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import ModalPlain from "./ModalPlain";
 
- function FormAprendiz() {
+function FormAprendiz({ show, setShow }) {
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
@@ -12,55 +12,41 @@ import ModalPlain from "./ModalPlain";
   });
   const [errors, setErrors] = useState({});
   const [mensaje, setMensaje] = useState("");
-  const [showModal, setShowModal] = useState(false);
 
-   const validar=()=>{
-  const nuevosErrores = {};
-  if (!formData.nombre.trim()) nuevosErrores.nombre = "El nombre es obligatorio";
-  if (!formData.correo.trim()) nuevosErrores.correo = "El correo es obligatorio";
-  if (!/\S+@\S+\.\S+/.test(formData.correo)) nuevosErrores.correo = "Correo no válido";
-  if (!formData.programa.trim()) nuevosErrores.programa = "El programa es obligatorio";
-  if (!formData.etapa.trim()) nuevosErrores.etapa = "La etapa es obligatoria";
-  if (!formData.codTutor.trim()) nuevosErrores.codTutor = "El código del tutor es obligatorio";
-  setErrors(nuevosErrores);
-  return Object.keys(nuevosErrores).length === 0;
-   }
+  const validar = () => {
+    const nuevosErrores = {};
+    if (!formData.nombre.trim()) nuevosErrores.nombre = "El nombre es obligatorio";
+    if (!formData.correo.trim()) nuevosErrores.correo = "El correo es obligatorio";
+    if (formData.correo && !/\S+@\S+\.\S+/.test(formData.correo)) nuevosErrores.correo = "Correo no válido";
+    if (!formData.programa.trim()) nuevosErrores.programa = "El programa es obligatorio";
+    if (!formData.etapa.trim()) nuevosErrores.etapa = "La etapa es obligatoria";
+    if (!formData.codTutor.toString().trim()) nuevosErrores.codTutor = "El código del tutor es obligatorio";
+    setErrors(nuevosErrores);
+    return Object.keys(nuevosErrores).length === 0;
+  };
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        if(!validar()) return;
-        try {
-          await axios.post('http://localhost:8080/api/aprendices/registrar', formData);
-          setMensaje("Aprendiz registrado correctamente");
-          setFormData({ nombre: '', correo: '', programa: '', etapa: '', codTutor: '' });   
-          setErrors({});
-        } catch (error) {
-          setMensaje("Error al registrar aprendiz");
-          console.error('Error al registrar aprendiz:', error);
-        }
-      };    
-    return (    
-        <div>
-     
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-[#004153] hover:bg-[#003442] text-white font-semibold px-4 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
-      >
-        Registrar Aprendiz
-      </button>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validar()) return;
+    try {
+      await axios.post('http://localhost:8080/api/aprendices/registrar', formData);
+      setMensaje("Aprendiz registrado correctamente");
+      setFormData({ nombre: '', correo: '', programa: '', etapa: '', codTutor: '' });
+      setErrors({});
+      // opcional: cerrar modal después de registrar
+      // setShow(false);
+    } catch (error) {
+      setMensaje("Error al registrar aprendiz");
+      console.error('Error al registrar aprendiz:', error);
+    }
+  };
 
-      <ModalPlain 
-        show={showModal} 
-        onClose={() => setShowModal(false)} 
-        title="Registrar Aprendiz  "
-        width="600px" 
-        >
-          
-
+  return (
+    <ModalPlain show={!!show} onClose={() => setShow(false)} title="Registrar Aprendiz" width="600px">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-semibold">Nombre</label>
@@ -73,6 +59,7 @@ import ModalPlain from "./ModalPlain";
           />
           {errors.nombre && <p className="text-red-500 text-sm">{errors.nombre}</p>}
         </div>
+
         <div>
           <label className="block font-semibold">Correo</label>
           <input
@@ -84,6 +71,7 @@ import ModalPlain from "./ModalPlain";
           />
           {errors.correo && <p className="text-red-500 text-sm">{errors.correo}</p>}
         </div>
+
         <div>
           <label className="block font-semibold">Programa</label>
           <input
@@ -95,6 +83,7 @@ import ModalPlain from "./ModalPlain";
           />
           {errors.programa && <p className="text-red-500 text-sm">{errors.programa}</p>}
         </div>
+
         <div>
           <label className="block font-semibold">Etapa</label>
           <input
@@ -106,6 +95,7 @@ import ModalPlain from "./ModalPlain";
           />
           {errors.etapa && <p className="text-red-500 text-sm">{errors.etapa}</p>}
         </div>
+
         <div>
           <label className="block font-semibold">Código del Tutor</label>
           <input
@@ -117,25 +107,18 @@ import ModalPlain from "./ModalPlain";
           />
           {errors.codTutor && <p className="text-red-500 text-sm">{errors.codTutor}</p>}
         </div>
-        <button
-          type="submit"
-          className="w-full bg-[#004153] text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
-        >
+
+        <button type="submit" className="w-full bg-[#004153] text-white font-semibold py-2 rounded-md hover:bg-[#003442] transition">
           Registrar
         </button>
-      </form>
 
-      {mensaje && (
-        <p
-          className={`mt-4 text-center font-semibold ${
-            mensaje.startsWith("✅") ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {mensaje}
-        </p>
-      )}
-      </ModalPlain>
-    </div>
+        {mensaje && (
+          <p className={`mt-4 text-center font-semibold ${mensaje.startsWith("✅") ? "text-green-600" : "text-red-600"}`}>
+            {mensaje}
+          </p>
+        )}
+      </form>
+    </ModalPlain>
   );
 }
 
