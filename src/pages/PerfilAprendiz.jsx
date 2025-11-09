@@ -1,12 +1,13 @@
 import React, {useState,useEffect} from "react";
 import { obtenerRetroalimentacionPorAprendiz } from "../servicios/retroalimentacionService";
 import { obtenerAprendizPorCodigo } from "../servicios/aprendizService";
-
+import ModalPlain from "../componentes/ModalPlain";
 
 function PerfilAprendiz() {
   const usuario = JSON.parse(localStorage.getItem('usuario'));
   const [retroalimentaciones, setRetroalimentaciones] = useState([]);
   const [aprendiz, setAprendiz] = useState(null);
+  const [showRetroModal, setShowRetroModal] = useState(false);
 
   useEffect(() => {
     const cargarRetroalimentaciones = async () => {  
@@ -71,9 +72,9 @@ function PerfilAprendiz() {
         </div>
       </nav>
 
-      <div className="flex gap-6">
+      <div className="flex gap-6 items-start">
         {/* Panel lateral: Información del aprendiz */}
-        <div className="w-1/4 bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
+          <div className="w-1/4 bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
           <img
             src="/logoUsuario.png"
             alt="Foto del aprendiz"
@@ -105,36 +106,57 @@ function PerfilAprendiz() {
           ) : (
             <p className="text-gray-500 text-sm">Cargando datos...</p>
           )}
-        </div>
-
+        </div> 
         {/* Contenido principal: Retroalimentaciones */}
-        <div className="w-3/4 bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-bold text-[#004153] mb-4">
-            Retroalimentaciones recibidas
-          </h2>
+          <div className="w-3/4 grid grid-cols-2 gap-6">
+  <h2 className="col-span-2 text-2xl font-bold text-[#004153] mb-6">
+    Bienvenido al sistema de gestión
+  </h2>
+        <div onClick={() => setShowRetroModal(true)} className="cursor-pointer bg-white border border-gray-200 hover:shadow-xl rounded-2xl p-6 text-center  ">
+             <div className="text-4xl mb-2"></div>
+              <h3 className="text-lg font-bold text-[#004153]">Ver Mis Retroalimentaciones</h3>
+               <p className="text-sm text-gray-500 mt-1">Revisa tus retroalimentaciones continuas</p>
+            </div>
+            <div onClick={() => setShowRetroModal(true)} className="cursor-pointer bg-white border border-gray-200 hover:shadow-xl rounded-2xl p-6 text-center">
+              <div className="text-4xl mb-2"></div>
+              <h3 className="text-lg font-bold text-[#004153]"> 2Ver Mis Retroalimentaciones</h3>
+               <p className="text-sm text-gray-500 mt-1">Revisa tus retroalimentaciones continuas</p>
+            </div>
 
-          {retroalimentaciones.length === 0 ? (
-            <p className="text-gray-500">
-              Aún no tienes retroalimentaciones registradas.
-            </p>
-          ) : (
-            <ul className="space-y-4">
-              {retroalimentaciones.map((retro, index) => (
-                <li
-                  key={index}
-                  className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition"
-                >
-                  <p><strong>Tutor:</strong> {retro.nombreTutor}</p>
-                  <p><strong>Calificación:</strong> {retro.calificacion}</p>
-                  <p><strong>Observaciones:</strong> {retro.observaciones}</p>
-                  <p><strong>Fecha:</strong> {retro.fecha ? new Date(retro.fecha).toLocaleDateString() : "Sin fecha"}</p>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        {showRetroModal && (
+        <ModalPlain
+          show={showRetroModal}
+          onClose={() => setShowRetroModal(false)}
+          title="Mis Retroalimentaciones"
+          className="max-w-6xl w-[100vw] max-h-[70vh] overflow-y-auto" 
+        >
+          
+         {retroalimentaciones.length === 0 ? (
+  <p className="text-gray-500">
+    Aún no tienes retroalimentaciones registradas.
+  </p>
+) : (
+  <ul className="space-y-4">
+    {retroalimentaciones.map((retro, index) => (
+      <li
+        key={index}
+        className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition"
+      >
+        <p><strong>Tutor:</strong> {retro.nombreTutor}</p>
+        <p><strong>Calificación:</strong> {retro.calificacion}</p>
+        <p><strong>Observaciones:</strong> {retro.observaciones}</p>
+        <p><strong>Fecha:</strong> {retro.fecha ? new Date(retro.fecha).toLocaleDateString() : "Sin fecha"}</p>
+      </li>
+    ))}
+  </ul>
+)}
+</ModalPlain>
+
+        )}
       </div>
-    </div>
+      </div>
+      </div>
+      
   );
 }
 
