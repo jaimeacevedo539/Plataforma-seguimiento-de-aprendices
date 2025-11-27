@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { registrarRetroalimentacion } from "../servicios/retroalimentacionService";
+import { registrarCompetencia } from "../servicios/competenciasService";
 import ModalPlain from "../componentes/ModalPlain";
 
-function RegistrarRetroalimentacion({ show, setShow }) {
+function RegistrarCompetencia({ show, setShow }) {
   const [formData, setFormData] = useState({
     codAprendiz: "",
-    codTutor: "",
-    observaciones: "",
-    calificacion: "",
+    nota_uno: "",
+    nota_dos: "",
+    nota_tres: "",
   });
 
   const [mensaje, setMensaje] = useState("");
@@ -22,22 +22,23 @@ function RegistrarRetroalimentacion({ show, setShow }) {
     setMensaje("");
 
     try {
-      await registrarRetroalimentacion({
+      await registrarCompetencia({
         ...formData,
         cod_aprendiz: parseInt(formData.codAprendiz),
-        cod_tutor: parseInt(formData.codTutor),
+        
       });
 
-      setMensaje(" Retroalimentación registrada correctamente");
+      setMensaje(" Competencia registrada correctamente");
       setFormData({
         codAprendiz: "",
-        codTutor: "",
-        observaciones: "",
-        calificacion: "",
+        competencia: "",
+        nota_uno: "",
+        nota_dos: "",
+        nota_tres: "",
       });
     } catch (error) {
-      console.error("Error al registrar retroalimentación:", error);
-      setMensaje(" Error al registrar retroalimentación");
+      console.error("Error al registrar competencia:", error);
+      setMensaje(" Error al registrar competencia");
     }
   };
 
@@ -48,7 +49,7 @@ function RegistrarRetroalimentacion({ show, setShow }) {
       <ModalPlain 
       show={!!show} 
       onClose={() => setShow(false)} 
-      title="Formulario de Retroalimentación"
+      title="Formulario de Competencia"
       width="600px">
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -65,22 +66,10 @@ function RegistrarRetroalimentacion({ show, setShow }) {
         </div>
 
         <div>
-          <label className="block font-semibold">Código del Tutor</label>
-          <input
-            type="number"
-            name="codTutor"
-            value={formData.codTutor}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block font-semibold">Observaciones</label>
+          <label className="block font-semibold">Competencia</label>
           <textarea
-            name="observaciones"
-            value={formData.observaciones}
+            name="competencia"
+            value={formData.competencia}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
             rows="3"
@@ -89,16 +78,42 @@ function RegistrarRetroalimentacion({ show, setShow }) {
         </div>
 
         <div>
-          <label className="block font-semibold">Calificación</label>
+          <label className="block font-semibold">Nota 1</label>
           <input
             type="number"
-            name="calificacion"
-            value={formData.calificacion}
+            name="nota_uno"
+            value={formData.nota_uno}
             onChange={handleChange}
             min="1"
             max="100"
             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-            required
+            
+          />
+        </div>
+        <div>
+          <label className="block font-semibold">Nota 2</label>
+          <input
+            type="number"
+            name="nota_dos"
+            value={formData.nota_dos}
+            onChange={handleChange}
+            min="1"
+            max="100"
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+            
+          />
+        </div>
+        <div>
+          <label className="block font-semibold">Nota 3</label>
+          <input
+            type="number"
+            name="nota_tres"
+            value={formData.nota_tres}
+            onChange={handleChange}
+            min="1"
+            max="100"
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+            
           />
         </div>
 
@@ -106,7 +121,7 @@ function RegistrarRetroalimentacion({ show, setShow }) {
           type="submit"
           className="w-full bg-[#004153] text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
         >
-          Registrar
+          Enviar
         </button>
       </form>
 
@@ -124,4 +139,4 @@ function RegistrarRetroalimentacion({ show, setShow }) {
   );
 }
 
-export default RegistrarRetroalimentacion;
+export default RegistrarCompetencia;

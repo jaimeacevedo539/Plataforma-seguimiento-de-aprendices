@@ -207,8 +207,10 @@ function PerfilAprendiz() {
                       <td className="py-2 px-3 border">{((c.nota_uno + c.nota_dos + c.nota_tres)).toFixed(2)}</td>
                       <td className="py-2 px-3 border text-center">
                       </td>
+                   
                     </tr>
                   ))}
+                
                 </tbody>
               </table>
             </div>

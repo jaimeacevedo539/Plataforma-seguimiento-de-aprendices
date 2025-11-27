@@ -3,6 +3,7 @@ import FormAprendiz from "../componentes/FormAprendiz";
 import ListarAprendices from "../pages/ListarAprendices";
 import RegistrarRetroalimentacion from "../pages/Retroalimentacion";
 import ListarRetroalimentacion from "../pages/ListarRetroalimentacion";
+import RegistrarCompetencia from "./RegistrarCompetencia";
 import { obtenerTutorPorCodigo } from "../servicios/tutorService";
 
 function PerfilTutor() {
@@ -13,6 +14,7 @@ function PerfilTutor() {
   const [showFormAprendiz, setShowFormAprendiz] = useState(false);
   const [showListAprendiz, setShowListAprendiz] = useState(false);
   const [showRetro, setShowRetro] = useState(false);
+  const [showCompetencia, setShowCompetencia] = useState(false);
   const [showListRetro, setShowListRetro] = useState(false);
 
   useEffect(() => {
@@ -87,6 +89,13 @@ function PerfilTutor() {
                <p className="text-sm text-gray-500 mt-1">Asignar observaciones a un aprendiz</p>
             </div>
 
+            <div onClick={() => setShowCompetencia(true)} className="cursor-pointer bg-white border border-gray-200 hover:shadow-xl rounded-2xl p-6 text-center">
+              <div className="text-4xl mb-2"></div>
+              <h3 className="text-lg font-bold text-[#004153]">Registrar competencia</h3>
+              <p className="text-sm text-gray-500 mt-1">Registra competencias al alumno</p>
+            </div>
+          
+
             <div onClick={() => setShowListRetro(true)} className="cursor-pointer bg-white border border-gray-200 hover:shadow-xl rounded-2xl p-6 text-center">
               <div className="text-4xl mb-2"></div>
               <h3 className="text-lg font-bold text-[#004153]">Listar Retroalimentaciones</h3>
@@ -94,12 +103,14 @@ function PerfilTutor() {
             </div>
           </div>
 
+          
+
           {/* RENDERIZA los componentes / modales controlados */}
           <FormAprendiz show={showFormAprendiz} setShow={setShowFormAprendiz} />
           <ListarAprendices show={showListAprendiz} setShow={setShowListAprendiz} />
           <RegistrarRetroalimentacion show={showRetro} setShow={setShowRetro} />
           <ListarRetroalimentacion show={showListRetro} setShow={setShowListRetro} />
-
+          <RegistrarCompetencia show={showCompetencia} setShow={setShowCompetencia} />
           
         </div>
       </div>
